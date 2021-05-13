@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -27,6 +28,7 @@ public class ReadExcel {
 		FileInputStream fis = new FileInputStream(f);
 		Workbook myWorkbook = null;
 		
+		//Get the extension and validate whether it is xlsx or xls file
 		String fileExtensionName = filename.substring(filename.indexOf("."));
 		if(fileExtensionName.equals(".xlsx"))
 		{
@@ -35,10 +37,11 @@ public class ReadExcel {
 		}
 		else if(fileExtensionName.equals(".xls"))
 		{
-			myWorkbook = new XSSFWorkbook(fis);
+			myWorkbook = new HSSFWorkbook(fis);
 			System.out.println("Extension is :: xls");
 		}
 		
+		//Get the sheet from the excel, find the rowcount and iterate through it to get the rows and cells and print that
 		Sheet mySheet = myWorkbook.getSheet(sheetname);
 		int rowCount = mySheet.getLastRowNum()-mySheet.getFirstRowNum();
 		System.out.println(rowCount);
